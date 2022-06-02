@@ -1,7 +1,5 @@
 package Dobble;
 
-import Cards.*; // Se importa los metodos de Cards
-
 import java.util.ArrayList;
 import java.util.List;
 
