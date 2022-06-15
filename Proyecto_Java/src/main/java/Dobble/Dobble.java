@@ -6,33 +6,34 @@ public class Dobble {
 
     // Atributos
     private int maxC;
-    private int orden;
+    private int numE;
     private List elements;
 
-    public Dobble(int maxC, int orden, List elements) {
+    // Metodos
+
+    public Dobble(int maxC, int numE, List elements) {
         this.maxC = maxC;
-        this.orden = orden;
+        this.numE = numE;
         this.elements = elements;
     }
 
     public int getMaxC() {
         return maxC;
     }
+    public int getNumE() {
+        return numE;
+    }
+
+    public List getElements() {
+        return elements;
+    }
 
     public void setMaxC(int maxC) {
         this.maxC = maxC;
     }
 
-    public int getOrden() {
-        return orden;
-    }
-
-    public void setOrden(int orden) {
-        this.orden = orden;
-    }
-
-    public List getElements() {
-        return elements;
+    public void setNumE(int numE) {
+        this.numE = numE;
     }
 
     public void setElements(List elements) {
@@ -43,20 +44,10 @@ public class Dobble {
     public String toString() {
         return "Dobble{" +
                 "maxC=" + maxC +
-                ", orden=" + orden +
+                ", orden=" + numE +
                 ", elements=" + elements +
                 '}';
     }
-
-    // Metodos
-    public void GenerarMazo(List elements, int orden, int maxC){
-
-        for(int i = 1; i <= orden+1; i = i + 1){
-
-        }
-
-    }
-
 }
 
 

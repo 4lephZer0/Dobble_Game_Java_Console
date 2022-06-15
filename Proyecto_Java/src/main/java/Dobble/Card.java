@@ -15,13 +15,14 @@ public class Card {
         return largo;
     }
 
+    public List getElementos() {
+        return elementos;
+    }
+
     public void setLargo(int largo) {
         this.largo = largo;
     }
 
-    public List getElementos() {
-        return elementos;
-    }
 
     public void setElementos(List elementos) {
         this.elementos = elementos;
