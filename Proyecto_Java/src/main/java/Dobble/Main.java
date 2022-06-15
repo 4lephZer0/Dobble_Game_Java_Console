@@ -19,7 +19,7 @@ public class Main {
             System.out.print("Opcion: ");
             String opcion = escaneo.nextLine();
 
-            if (opcion !=  "1"){
+            if (opcion.equals("1")){
                 System.out.print("Ingrese la cantidad maxima de cartas: ");
                 String maxC  = escaneo.nextLine();
 
@@ -31,6 +31,37 @@ public class Main {
                 String numE  = escaneo.nextLine();
 
                 List<Card> Mazo = new ArrayList<Card>();
+                List<Integer> carta  = new ArrayList<Integer>();
+                int n = Integer.parseInt(numE) - 1;
+                for (int i = 1; i<= n+1; i++) {
+                    carta.add(i);
+                }
+                Card carta1 = new Card(carta.size(),carta);
+                Mazo.add(carta1);
+                for (int j=1; j<=n; j++) {
+                    carta.clear();
+                    carta.add(1);
+
+                    for (int k=1; k<=n; k++) {
+                        carta.add(n * j + (k+1));
+                    }
+                    carta1 = new Card(carta.size(),carta);
+                    Mazo.add(carta1);
+                }
+                for (int i= 1; i<=n; i++) {
+                    for (int j=1; j<=n; j++) {
+                        carta.clear();
+                        carta.add(i+1);
+
+                        for (int k=1; k<= n; k++) {
+                            carta.add(n+2+n*(k-1)+(((i-1)*(k-1)+j-1)%n));
+                        }
+                        carta1 = new Card(carta.size(),carta);
+                        Mazo.add(carta1);
+                    }
+                }
+                System.out.println(Mazo);
+                condicion = 1;
 
             }
         }
