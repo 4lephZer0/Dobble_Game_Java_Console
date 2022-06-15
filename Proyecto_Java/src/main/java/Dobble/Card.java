@@ -30,6 +30,6 @@ public class Card {
 
     @Override
     public String toString() {
-        return "Card{" + "largo=" + largo + ", elementos=" + elementos + '}';
+        return "Carta" + elementos;
     }
 }

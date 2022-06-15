@@ -36,7 +36,8 @@ public class Main {
                 for (int i = 1; i<= n+1; i++) {
                     carta.add(i);
                 }
-                Card carta1 = new Card(carta.size(),carta);
+                List<Integer> cartaAux  = new ArrayList<Integer>(carta);
+                Card carta1 = new Card(carta.size(),cartaAux);
                 Mazo.add(carta1);
                 for (int j=1; j<=n; j++) {
                     carta.clear();
@@ -45,7 +46,8 @@ public class Main {
                     for (int k=1; k<=n; k++) {
                         carta.add(n * j + (k+1));
                     }
-                    carta1 = new Card(carta.size(),carta);
+                    cartaAux  = new ArrayList<Integer>(carta);
+                    carta1 = new Card(carta.size(),cartaAux);
                     Mazo.add(carta1);
                 }
                 for (int i= 1; i<=n; i++) {
@@ -56,7 +58,8 @@ public class Main {
                         for (int k=1; k<= n; k++) {
                             carta.add(n+2+n*(k-1)+(((i-1)*(k-1)+j-1)%n));
                         }
-                        carta1 = new Card(carta.size(),carta);
+                        cartaAux  = new ArrayList<Integer>(carta);
+                        carta1 = new Card(carta.size(),cartaAux);
                         Mazo.add(carta1);
                     }
                 }
