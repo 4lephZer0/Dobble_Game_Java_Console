@@ -30,7 +30,7 @@ public class Main {
                 System.out.print("Ingrese la cantidad de elementos por carta: ");
                 String numE  = escaneo.nextLine();
 
-                List<Card> Mazo = new ArrayList<Card>();
+                List<Card> mazo = new ArrayList<Card>();
                 List<Integer> carta  = new ArrayList<Integer>();
                 int n = Integer.parseInt(numE) - 1;
                 for (int i = 1; i<= n+1; i++) {
@@ -38,7 +38,7 @@ public class Main {
                 }
                 List<Integer> cartaAux  = new ArrayList<Integer>(carta);
                 Card carta1 = new Card(carta.size(),cartaAux);
-                Mazo.add(carta1);
+                mazo.add(carta1);
                 for (int j=1; j<=n; j++) {
                     carta.clear();
                     carta.add(1);
@@ -48,7 +48,7 @@ public class Main {
                     }
                     cartaAux  = new ArrayList<Integer>(carta);
                     carta1 = new Card(carta.size(),cartaAux);
-                    Mazo.add(carta1);
+                    mazo.add(carta1);
                 }
                 for (int i= 1; i<=n; i++) {
                     for (int j=1; j<=n; j++) {
@@ -60,23 +60,22 @@ public class Main {
                         }
                         cartaAux  = new ArrayList<Integer>(carta);
                         carta1 = new Card(carta.size(),cartaAux);
-                        Mazo.add(carta1);
+                        mazo.add(carta1);
                     }
                 }
-                System.out.println(Mazo);
+
+                Cards mazo1 = new Cards(mazo.size(), mazo);
+                List<Card> mazoAux = new ArrayList<Card>();
+                mazoAux = mazo1.getMazo();
+                for (int i= 0; i< mazoAux.size(); i++){
+
+                    System.out.println("Carta n°" + (i+1) + ": " +  mazoAux.get(i).getElementos());
+
+                }
                 condicion = 1;
 
             }
         }
-
-
-
-        /*
-        Lista.add("Hola");
-        Carta1.setElementos(Lista);
-        Carta1.setLargo(Lista.size());
-        System.out.println(Carta1);
-        */
     }
 
 

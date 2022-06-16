@@ -16,7 +16,7 @@ public class Cards {
         return largo;
     }
 
-    public List getMazo() {
+    public List<Card> getMazo() {
         return mazo;
     }
 
