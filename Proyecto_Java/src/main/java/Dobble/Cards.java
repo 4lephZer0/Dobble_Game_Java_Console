@@ -7,6 +7,7 @@ public class Cards {
     private int largo;
     private List<Card> mazo;
 
+    // CONSTRUCTOR
     public Cards(int largo, List<Card> mazo) {
         this.largo = largo;
         this.mazo = mazo;

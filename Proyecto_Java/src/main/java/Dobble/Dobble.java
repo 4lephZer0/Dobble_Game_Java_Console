@@ -9,12 +9,18 @@ public class Dobble {
     private int numE;
     private List elements;
 
-    // Metodos
+    // Metodos Constructores
 
     public Dobble(int maxC, int numE, List elements) {
         this.maxC = maxC;
         this.numE = numE;
         this.elements = elements;
+    }
+
+    // Metodos de pertenencia
+
+    public boolean isDobble(List<Card> mazo) {
+
     }
 
     public int getMaxC() {
@@ -23,7 +29,6 @@ public class Dobble {
     public int getNumE() {
         return numE;
     }
-
     public List getElements() {
         return elements;
     }
