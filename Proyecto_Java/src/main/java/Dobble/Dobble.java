@@ -17,11 +17,6 @@ public class Dobble {
         this.elements = elements;
     }
 
-    // Metodos de pertenencia
-
-    public boolean isDobble(List<Card> mazo) {
-
-    }
 
     public int getMaxC() {
         return maxC;

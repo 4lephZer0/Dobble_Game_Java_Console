@@ -21,57 +21,20 @@ public class Main {
 
             if (opcion.equals("1")){
                 System.out.print("Ingrese la cantidad maxima de cartas: ");
-                String maxC  = escaneo.nextLine();
+                String maxC1  = escaneo.nextLine();
+                int maxC = Integer.parseInt(maxC1);
+
+                System.out.print("Ingrese la cantidad de elementos por carta: ");
+                String numE1  = escaneo.nextLine();
+                int numE = Integer.parseInt(numE1);
 
                 System.out.print("Ingrese una lista de elementos (EJEMPLO: A,B,C,D,E ): ");
                 String cadena  = escaneo.nextLine();
                 List<String> elements = new ArrayList<String>(Arrays.asList(cadena.split(",")));
 
-                System.out.print("Ingrese la cantidad de elementos por carta: ");
-                String numE  = escaneo.nextLine();
+                Cards mazo = new Cards(maxC, numE, elements);
 
-                List<Card> mazo = new ArrayList<Card>();
-                List<Integer> carta  = new ArrayList<Integer>();
-                int n = Integer.parseInt(numE) - 1;
-                for (int i = 1; i<= n+1; i++) {
-                    carta.add(i);
-                }
-                List<Integer> cartaAux  = new ArrayList<Integer>(carta);
-                Card carta1 = new Card(carta.size(),cartaAux);
-                mazo.add(carta1);
-                for (int j=1; j<=n; j++) {
-                    carta.clear();
-                    carta.add(1);
-
-                    for (int k=1; k<=n; k++) {
-                        carta.add(n * j + (k+1));
-                    }
-                    cartaAux  = new ArrayList<Integer>(carta);
-                    carta1 = new Card(carta.size(),cartaAux);
-                    mazo.add(carta1);
-                }
-                for (int i= 1; i<=n; i++) {
-                    for (int j=1; j<=n; j++) {
-                        carta.clear();
-                        carta.add(i+1);
-
-                        for (int k=1; k<= n; k++) {
-                            carta.add(n+2+n*(k-1)+(((i-1)*(k-1)+j-1)%n));
-                        }
-                        cartaAux  = new ArrayList<Integer>(carta);
-                        carta1 = new Card(carta.size(),cartaAux);
-                        mazo.add(carta1);
-                    }
-                }
-
-                Cards mazo1 = new Cards(mazo.size(), mazo);
-                List<Card> mazoAux = new ArrayList<Card>();
-                mazoAux = mazo1.getMazo();
-                for (int i= 0; i< mazoAux.size(); i++){
-
-                    System.out.println("Carta n°" + (i+1) + ": " +  mazoAux.get(i).getElementos());
-
-                }
+                System.out.println(mazo);
                 condicion = 1;
 
             }
