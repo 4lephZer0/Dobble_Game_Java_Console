@@ -5,7 +5,7 @@ import java.util.List;
 public class Card {
 
     private int largo;
-    private List elementos;
+    private List<String> elementos;
     public Card(int largo, List elementos){
         this.largo = largo;
         this.elementos = elementos;
@@ -24,7 +24,7 @@ public class Card {
     }
 
 
-    public void setElementos(List elementos) {
+    public void setElementos(List<String> elementos) {
         this.elementos = elementos;
     }
 

@@ -28,11 +28,21 @@ public class Main {
                 String numE1  = escaneo.nextLine();
                 int numE = Integer.parseInt(numE1);
 
-                System.out.print("Ingrese una lista de elementos (EJEMPLO: A,B,C,D,E ): ");
+                int condicion2 = 0;
+                while (condicion2 != 1){
+
+                    System.out.print("Ingrese una lista de elementos (EJEMPLO: A,B,C,D,E)\n" +
+                            "Procure que sea del mismo tamaño que la cantidad de elementos por carta: ");
+                    String cadena  = escaneo.nextLine();
+                    List<String> elements = new ArrayList<String>(Arrays.asList(cadena.split(",")));
+                    if (numE == elements.size()){
+                        condicion2 = 1;
+                    }
+
+                }
                 String cadena  = escaneo.nextLine();
                 List<String> elements = new ArrayList<String>(Arrays.asList(cadena.split(",")));
-
-                Cards mazo = new Cards(maxC, numE, elements);
+                Dobble mazo = new Dobble(maxC, numE, elements);
 
                 System.out.println(mazo);
                 condicion = 1;
