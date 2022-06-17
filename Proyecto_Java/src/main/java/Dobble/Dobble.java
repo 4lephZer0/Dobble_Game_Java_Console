@@ -79,7 +79,7 @@ public class Dobble {
 
         for (int i = 0; i<mazo.size(); i++){
 
-            int aux = 0;
+            Integer aux = 0;
             for (int j = 0; j<(mazo.get(i).getLargo()); j++){
 
                 if ((j+1) < mazo.get(i).getLargo()){
@@ -93,7 +93,7 @@ public class Dobble {
                     if(mazo.get(i+1).getElementos().contains(mazo.get(i).getElementos().get(j))){
 
                         aux++;
-                        if (aux == 2){
+                        if (aux.equals(2)){
 
                             return false;
                         }
@@ -146,7 +146,8 @@ public class Dobble {
 
     public Dobble missingCards(Dobble cards){
 
-        if (findTotalCards(cards.getCards().get(0)) == cards.getCards().size()){
+        Integer total = findTotalCards(cards.getCards().get(0));
+        if (total.equals(cards.getCards().size())){
             return cards;
         }
         else{
@@ -184,6 +185,15 @@ public class Dobble {
     public void setCards(List<Card> cards) {
         this.cards = cards;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Dobble)) return false;
+        Dobble dobble = (Dobble) o;
+        return getMaxC() == dobble.getMaxC() && getNumE() == dobble.getNumE() && Objects.equals(getElements(), dobble.getElements()) && Objects.equals(getCards(), dobble.getCards());
+    }
+
 
     // OTROS METODOS
 

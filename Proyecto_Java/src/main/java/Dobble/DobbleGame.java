@@ -1,5 +1,6 @@
 package Dobble;
 
+import java.sql.SQLOutput;
 import java.util.*;
 
 public class DobbleGame {
@@ -8,9 +9,10 @@ public class DobbleGame {
     private int numPlayers;
     private Dobble dobble;
     private String mode;
-    private List<String> jugadores;
+    private List<Player> jugadores;
     private List<List<Card>> cartasJugadores;
     private int turno;
+    private String estado;
 
 
     public DobbleGame(int numPlayers, Dobble cards, String mode) {
@@ -19,9 +21,10 @@ public class DobbleGame {
         this.numPlayers = numPlayers;
         this.dobble = cards;
         this.mode = mode;
-        this.jugadores = new ArrayList<String>();
+        this.jugadores = new ArrayList<Player>();
         this.cartasJugadores = new ArrayList<List<Card>>();
         this.turno = 0;
+        this.estado = "Aun no iniciado.";
     }
 
     public List<Card> stackMode(Dobble cards){
@@ -37,11 +40,11 @@ public class DobbleGame {
         return cartasVolteadas;
     }
 
-    public DobbleGame register(DobbleGame game, String nombreUsuario){
+    public DobbleGame register(DobbleGame game, Player nombreUsuario){
 
         if (game.getNumPlayers() < game.getJugadores().size()){
 
-            List<String> jugAux = new ArrayList<String>(game.getJugadores());
+            List<Player> jugAux = new ArrayList<Player>(game.getJugadores());
             List<List<Card>> cartasJugAux = new ArrayList<List<Card>>(game.getCartasJugadores());
 
             jugAux.add(nombreUsuario);
@@ -52,104 +55,227 @@ public class DobbleGame {
             game.setCartasJugadores(cartasJugAux);
 
             game.setTurno((game.getTurno() + 1));
+            System.out.println("JUGADOR REGISTRADO CON EXITO!!");
 
+        }
+        else{
+
+            System.out.println("No se pueden registrar mas usuarios.");
         }
 
         return game;
 
     }
 
-    public String whoseTurnIsIt(DobbleGame game){
+    public Player whoseTurnIsIt(DobbleGame game){
 
         return game.getJugadores().get(game.getTurno());
     }
 
-    public DobbleGame play(DobbleGame game, Integer accion, String elemento){
+    public DobbleGame play(DobbleGame game, String accion, String elemento){
 
-        if (accion.equals(1)){
+        if (accion.equals("1")){
 
             game.setMesa(stackMode(game.getDobble()));
             Dobble dobbleAux = game.getDobble();
             List<Card> mazoAux = game.getDobble().getCards().subList(2, game.getDobble().getCards().size());
             dobbleAux.setCards(mazoAux);
             game.setDobble(dobbleAux);
+            game.setEstado("Iniciado");
 
-        }
 
-        if (accion.equals(2)){
+        }else if (accion.equals("2")){
 
             if (game.getMesa().get(0).getElementos().contains(elemento) || game.getMesa().get(1).getElementos().contains(elemento)){
 
                 List<List<Card>> cartasJug = new ArrayList<List<Card>>(game.getCartasJugadores());
 
-                List<Card> cartaJug = new ArrayList<Card>();
-                cartaJug = cartasJug.get(game.getTurno());
-
-                cartaJug.add(game.getMesa().get(0));
-                cartaJug.add(game.getMesa().get(1));
-
-                // TAREA PENDIENTE: HACE QUE LA LISTA DE CARTAS DE UN JUGADOR SE META A LA LISTA DE CARTAS DE LOS JUGADORES TAL Y COMO ESTABA.
+                cartasJug.get(game.getTurno()).add(game.getMesa().get(0));
+                cartasJug.get(game.getTurno()).add(game.getMesa().get(1));
+                game.setCartasJugadores(cartasJug);
 
             }
+
+            else{
+
+                System.out.println("El elemento ingresado no está en comun entre las 2 cartas de la mesa...");
+                System.out.println("Se pasa al siguiente turno.");
+
+                Integer a = game.getTurno();
+                if (a.equals(game.getNumPlayers())){
+
+                    game.setTurno(0);
+                }
+
+                else{
+                    game.setTurno(game.getTurno()+1);
+                }
+
+                Dobble dobbleAux = game.getDobble();
+                List<Card> mazoAux = game.getDobble().getCards();
+                mazoAux.add(game.getMesa().get(1));
+                mazoAux.add(game.getMesa().get(0));
+                dobbleAux.setCards(mazoAux);
+                game.setDobble(dobbleAux);
+
+            }
+
+        }else if (accion.equals("3")){
+
+            System.out.println("Se pasa al siguiente turno.");
+
+            Integer a = game.getTurno();
+            if (a.equals(game.getNumPlayers())){
+
+                game.setTurno(0);
+            }
+
+            else{
+                game.setTurno(game.getTurno()+1);
+            }
+
+            Dobble dobbleAux = game.getDobble();
+            List<Card> mazoAux = game.getDobble().getCards();
+            mazoAux.add(game.getMesa().get(1));
+            mazoAux.add(game.getMesa().get(0));
+            dobbleAux.setCards(mazoAux);
+            game.setDobble(dobbleAux);
+
+
+        }else if (accion.equals("4")){
+
+            //finish
+
+            Player ganador = game.getJugadores().get(0);
+            Integer puntaje = game.getCartasJugadores().get(0).size();
+            Integer puntaje2 = 0;
+            Player ganador2;
+            for (int i = 0; i < game.getNumPlayers(); i++){
+
+                if (game.getCartasJugadores().get(i).size() > puntaje){
+                    puntaje = game.getCartasJugadores().get(i).size();
+                    ganador = game.getJugadores().get(i);
+
+                }else if(puntaje.equals(game.getCartasJugadores().get(i).size())){
+
+                    puntaje2 = game.getCartasJugadores().get(i).size();
+                    ganador2 = game.getJugadores().get(i);
+
+                }
+
+            }
+
+            if (puntaje.equals(puntaje2)){
+
+                System.out.println("Se declara un empate en el juego.");
+            }
+            else{
+
+                System.out.println("El ganador del juego es el jugador: " + ganador);
+            }
+
+            game.setEstado("Terminado");
 
         }
 
         return game;
     }
 
-    public List<Card> getMesa() {
-        return mesa;
+    public String status(DobbleGame game){
+
+        return game.getEstado();
     }
 
-    public void setMesa(List<Card> mesa) {
-        this.mesa = mesa;
+    public Integer score(DobbleGame game, String Usuario){
+
+        Integer posicion = game.getJugadores().indexOf(Usuario);
+        return game.getCartasJugadores().get(posicion).size();
+    }
+
+
+
+    public List<Card> getMesa() {
+        return mesa;
     }
 
     public int getNumPlayers() {
         return numPlayers;
     }
 
-    public void setNumPlayers(int numPlayers) {
-        this.numPlayers = numPlayers;
-    }
-
     public Dobble getDobble() {
         return dobble;
-    }
-
-    public void setDobble(Dobble dobble) {
-        this.dobble = dobble;
     }
 
     public String getMode() {
         return mode;
     }
 
-    public void setMode(String mode) {
-        this.mode = mode;
-    }
-
-    public List<String> getJugadores() {
+    public List<Player> getJugadores() {
         return jugadores;
-    }
-
-    public void setJugadores(List<String> jugadores) {
-        this.jugadores = jugadores;
     }
 
     public List<List<Card>> getCartasJugadores() {
         return cartasJugadores;
     }
 
-    public void setCartasJugadores(List<List<Card>> cartasJugadores) {
-        this.cartasJugadores = cartasJugadores;
-    }
-
     public int getTurno() {
         return turno;
     }
 
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setMesa(List<Card> mesa) {
+        this.mesa = mesa;
+    }
+
+    public void setNumPlayers(int numPlayers) {
+        this.numPlayers = numPlayers;
+    }
+
+    public void setDobble(Dobble dobble) {
+        this.dobble = dobble;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
+
+    public void setJugadores(List<Player> jugadores) {
+        this.jugadores = jugadores;
+    }
+
+    public void setCartasJugadores(List<List<Card>> cartasJugadores) {
+        this.cartasJugadores = cartasJugadores;
+    }
+
     public void setTurno(int turno) {
         this.turno = turno;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DobbleGame)) return false;
+        DobbleGame that = (DobbleGame) o;
+        return getNumPlayers() == that.getNumPlayers() && getTurno() == that.getTurno() && Objects.equals(getMesa(), that.getMesa()) && Objects.equals(getDobble(), that.getDobble()) && Objects.equals(getMode(), that.getMode()) && Objects.equals(getJugadores(), that.getJugadores()) && Objects.equals(getCartasJugadores(), that.getCartasJugadores());
+    }
+
+    @Override
+    public String toString() {
+        return "DobbleGame:" +
+                "\nmesa=" + mesa +
+                "\nnumPlayers=" + numPlayers +
+                "\ndobble=" + dobble +
+                "\nmode=" + mode +
+                "\njugadores=" + jugadores +
+                "\ncartasJugadores=" + cartasJugadores +
+                "\nturno=" + turno +
+                "\nestado=" + estado;
     }
 }

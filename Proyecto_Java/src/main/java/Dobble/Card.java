@@ -28,7 +28,11 @@ public class Card {
         this.elementos = elementos;
     }
 
+    @Override
     public String toString() {
-        return "Carta" + elementos;
+        return "Card{" +
+                "largo=" + largo +
+                ", elementos=" + elementos +
+                '}';
     }
 }
