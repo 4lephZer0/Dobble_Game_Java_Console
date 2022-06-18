@@ -2,18 +2,23 @@ package Dobble;
 
 import java.util.*;
 
+// Clase DobbleGame que representa al juego completo de Dobble
 public class DobbleGame implements Game {
 
-    private List<Card> mesa;
-    private int numPlayers;
-    private Dobble dobble;
-    private String mode;
-    private List<Player> jugadores;
-    private List<List<Card>> cartasJugadores;
-    private int turno;
-    private String estado;
+    private List<Card> mesa; // Atributo que representar la mesa donde estan volteadas las cartas
+    private int numPlayers; // Atributo que representa la cantidad de jugadores registrados
+    private Dobble dobble; // Atributo que representa el mazo
+    private String mode; // Atributo que representa el modo de juego a jugar
+    private List<Player> jugadores; // Atributo que representa la lista de jugadores registrados
+    private List<List<Card>> cartasJugadores; // Atributo que representa la lista de cartas de los jugadores.
+    private int turno; // Atributo que representa el turno de quien juega actualmente
+    private String estado; // Atributo que representa el estado del juego, puede ser iniciado, finalizado, Aun no iniciado
 
 
+    // ####### METODOS CONSTRUCTORES #########
+
+
+    // Constructor del juego Dobble, se encarga de instanciar los atributos de la clase.
     public DobbleGame(int numPlayers, Dobble cards, String mode) {
 
         this.mesa = new ArrayList<Card>();
@@ -26,7 +31,78 @@ public class DobbleGame implements Game {
         this.estado = "Aun no iniciado.";
     }
 
-    @Override
+
+    // ####### METODOS DE PERTENENCIA #########
+
+
+    // Metodo que se encarga mostrar de quien es el turno actual
+    public Player whoseTurnIsIt(DobbleGame game){
+
+        return game.getJugadores().get(game.getTurno()-1);
+    }
+
+
+    // ####### METODOS SELECTORES #########
+
+
+    // Metodo que muestra el estado actual de juego
+    public String status(DobbleGame game){
+
+        return game.getEstado();
+    }
+
+    // Metodo que muestra el puntaje de x jugador
+    public Integer score(DobbleGame game, String Usuario){
+
+        Integer posicion = game.getJugadores().indexOf(Usuario);
+        return game.getCartasJugadores().get(posicion).size();
+    }
+
+    // Metodo que obtiene la mesa del juego
+    public List<Card> getMesa() {
+        return mesa;
+    }
+
+    // Metodo que obtiene el numero de jugadores registrados
+    public int getNumPlayers() {
+        return numPlayers;
+    }
+
+    // Metodo que obtiene el mazo de cartas del juego
+    public Dobble getDobble() {
+        return dobble;
+    }
+
+    // Metodo que obtiene el modo de juego
+    public String getMode() {
+        return mode;
+    }
+
+    // Metodo que obtiene la lista de jugadores
+    public List<Player> getJugadores() {
+        return jugadores;
+    }
+
+    // Metodo que obtiene la lista de cartas de cada jugador
+    public List<List<Card>> getCartasJugadores() {
+        return cartasJugadores;
+    }
+
+    // Metodo que obtiene el turno actual de juego
+    public int getTurno() {
+        return turno;
+    }
+
+    // Metodo que obtiene el estado actual del juego
+    public String getEstado() {
+        return estado;
+    }
+
+
+    // ####### METODOS MODIFICADORES #########
+
+
+    // Metodo que se encarga de extraer 2 cartas del mazo y ponerlas en la mesa
     public List<Card> stackMode(Dobble cards){
 
         List<Card> cartasVolteadas = new ArrayList<Card>();
@@ -46,6 +122,7 @@ public class DobbleGame implements Game {
         return cartasVolteadas;
     }
 
+    // Metodo que se encarga de registrar a un jugador dentro del juego
     public DobbleGame register(DobbleGame game, Player nombreUsuario){
 
         if (game.getJugadores().size() < game.getNumPlayers()){
@@ -73,11 +150,7 @@ public class DobbleGame implements Game {
 
     }
 
-    public Player whoseTurnIsIt(DobbleGame game){
-
-        return game.getJugadores().get(game.getTurno()-1);
-    }
-
+    // Metodo que se encarga de realizar una accion del juego dada la eleccion
     public DobbleGame play(DobbleGame game, String accion, String elemento){
 
         if (accion.equals("1")){
@@ -194,83 +267,51 @@ public class DobbleGame implements Game {
         return game;
     }
 
-    public String status(DobbleGame game){
-
-        return game.getEstado();
-    }
-
-    public Integer score(DobbleGame game, String Usuario){
-
-        Integer posicion = game.getJugadores().indexOf(Usuario);
-        return game.getCartasJugadores().get(posicion).size();
-    }
-
-
-
-    public List<Card> getMesa() {
-        return mesa;
-    }
-
-    public int getNumPlayers() {
-        return numPlayers;
-    }
-
-    public Dobble getDobble() {
-        return dobble;
-    }
-
-    public String getMode() {
-        return mode;
-    }
-
-    public List<Player> getJugadores() {
-        return jugadores;
-    }
-
-    public List<List<Card>> getCartasJugadores() {
-        return cartasJugadores;
-    }
-
-    public int getTurno() {
-        return turno;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
+    // Metodo que se encarga de setear la mesa
     public void setMesa(List<Card> mesa) {
         this.mesa = mesa;
     }
 
+    // Metodo que se encarga de setear la cantidad de jugadores registrados
     public void setNumPlayers(int numPlayers) {
         this.numPlayers = numPlayers;
     }
 
+    // Metodo que se encarga de setear el mazo de juego
     public void setDobble(Dobble dobble) {
         this.dobble = dobble;
     }
 
+    // Metodo que se encarga de setear el modo de juego
     public void setMode(String mode) {
         this.mode = mode;
     }
 
+    // Metodo que se encarga de setear la lista de jugadores
     public void setJugadores(List<Player> jugadores) {
         this.jugadores = jugadores;
     }
 
+    // Metodo que se encarga de setear la lista de cartas de cada jugador
     public void setCartasJugadores(List<List<Card>> cartasJugadores) {
         this.cartasJugadores = cartasJugadores;
     }
 
+    // Metodo que se encarga de setear el turno actual del juego
     public void setTurno(int turno) {
         this.turno = turno;
     }
 
+    // Metodo que se encarga de setear el estado actual del juego
     public void setEstado(String estado) {
         this.estado = estado;
     }
 
+
+    // ####### OTROS METODOS #########
+
+
+    // Metodo que se encarga comparar un objeto con el que llama al metodo
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -279,6 +320,7 @@ public class DobbleGame implements Game {
         return getNumPlayers() == that.getNumPlayers() && getTurno() == that.getTurno() && Objects.equals(getMesa(), that.getMesa()) && Objects.equals(getDobble(), that.getDobble()) && Objects.equals(getMode(), that.getMode()) && Objects.equals(getJugadores(), that.getJugadores()) && Objects.equals(getCartasJugadores(), that.getCartasJugadores());
     }
 
+    // Metodo que se encarga de realizar una representacion en string del juego
     @Override
     public String toString() {
         return "DobbleGame:" +
@@ -291,6 +333,4 @@ public class DobbleGame implements Game {
                 "\nturno=" + turno +
                 "\nestado=" + estado;
     }
-
-
 }

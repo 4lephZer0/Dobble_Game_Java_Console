@@ -2,6 +2,7 @@ package Dobble;
 
 import java.util.*;
 
+// CLASE MAIN, aqui ocurre toda la magia del menu por consola.
 public class Main {
     public static void main(String[] args){
 
@@ -14,7 +15,7 @@ public class Main {
         System.out.println("Este programa simula el juego de Dobble");
         System.out.println("Para empezar");
 
-
+        // Ciclo de decisiones menu 1
         while (condicion < 1){
 
             System.out.println("Ingrese una de las siguientes opciones\n");
@@ -54,7 +55,6 @@ public class Main {
 
                 }
 
-
                 mazo = new Dobble(maxC, numE, elements);
                 System.out.println(mazo);
 
@@ -82,6 +82,7 @@ public class Main {
                 int condicion3 = 0;
                 System.out.println("para empezar el juego, ingrese alguna de las siguientes opciones: ");
 
+                // Ciclo de decisiones menu 2
                 while (condicion3 != 1){
 
                     Player jugador2 = juego.whoseTurnIsIt(juego);

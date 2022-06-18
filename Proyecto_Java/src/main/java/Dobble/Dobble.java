@@ -3,17 +3,19 @@ package Dobble;
 
 import java.util.*;
 
+// Clase Dobble, esta se encarga de representar un juego de Dobble.
 public class Dobble implements CardsSet {
 
-    private int maxC;
-    private int numE;
-    private List<String> elements;
-    private List<Card> cards;
+    private int maxC;   //Atributo que representa el maximo de cartas
+    private int numE;   //Atributo que representa el numero total de elementos por carta
+    private List<String> elements; //Atributo que representa la lista de elementos
+    private List<Card> cards; //Atributo que representa el mazo de cartas
 
 
-    // CONSTRUCTORES
+    // ####### METODOS CONSTRUCTORES #########
 
 
+    // Este metodo se encarga de construir un mazo e instanciar todos los atributos de él
     public Dobble(int maxC, int numE, List<String> elements) {
         this.maxC = maxC;
         this.numE = numE;
@@ -71,8 +73,11 @@ public class Dobble implements CardsSet {
 
     }
 
-    // METODOS DE PERTENENCIA
 
+    // ####### METODOS DE PERTENENCIA #########
+
+
+    //Este metodo se encarga verificar si un mazo de Dobble, es realmente un mazo.
     public boolean isDobble(Dobble cards) {
 
         List<Card> mazo = cards.getCards();
@@ -104,46 +109,59 @@ public class Dobble implements CardsSet {
         return true;
     }
 
-    // METODOS SELECTORES
 
+    // ####### METODOS SELECTORES #########
+
+
+    // Metodo que se encarga de obtener el maxC.
     public int getMaxC() {
         return maxC;
     }
 
+    // Metodo que se encarga de obtener el numE.
     public int getNumE() {
         return numE;
     }
 
+    // Metodo que se encarga de obtener la lista de elementos utilizados.
     public List<String> getElements() {
         return elements;
     }
 
+    // Metodo que se encarga de obtener la lista de cartas (mazo).
     public List<Card> getCards() {
         return cards;
     }
 
+    // Metodo que se encarga de obtener el total de cartas.
     public int numCards(Dobble cards){
 
         return cards.getCards().size();
     }
 
+    // Metodo que se encarga de obtener una carta segun su indice.
     public Card nthCard(Dobble cards, int indice){
 
         return cards.getCards().get(indice);
     }
 
+    // Metodo que se encarga de obtener el total de cartas dada una sola carta.
     public int findTotalCards(Card card){
         int n = card.getLargo() - 1;
         return ((n*n) + n + 1);
     }
 
+    // Metodo que se encarga de obtener el total de elementos dada una sola carta.
     public int requiredElements(Card card){
         int n = card.getLargo() - 1;
         return ((n*n) + n + 1);
     }
 
-    // METODOS MODIFICADORES
 
+    // ####### METODOS MODIFICADORES #########
+
+
+    // Metodo que se encarga de obtener las cartas faltantes de un mazo.
     public Dobble missingCards(Dobble cards){
 
         Integer total = findTotalCards(cards.getCards().get(0));
@@ -168,24 +186,29 @@ public class Dobble implements CardsSet {
         }
     }
 
+    // Metodo que se encarga de setear el maxC
     public void setMaxC(int maxC) {
         this.maxC = maxC;
     }
 
+    // Metodo que se encarga de setear el numE
     public void setNumE(int numE) {
         this.numE = numE;
     }
 
-
+    // Metodo que se encarga de setear la lista de elementos
     public void setElements(List<String> elements) {
         this.elements = elements;
     }
 
-
+    // Metodo que se encarga de setear la lista de cartas
     public void setCards(List<Card> cards) {
         this.cards = cards;
     }
 
+    // ####### OTROS METODOS #########
+
+    // Metodo que se encarga comparar 2 objetos.
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -194,9 +217,7 @@ public class Dobble implements CardsSet {
         return getMaxC() == dobble.getMaxC() && getNumE() == dobble.getNumE() && Objects.equals(getElements(), dobble.getElements()) && Objects.equals(getCards(), dobble.getCards());
     }
 
-
-    // OTROS METODOS
-
+    // Metodo que se encarga de representar el mazo y sus atributos como String.
     @Override
     public String toString() {
         return "Cards{" +
