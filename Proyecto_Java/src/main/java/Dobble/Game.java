@@ -1,6 +1,8 @@
 package Dobble;
 
 import java.util.*;
+
+// Interfaz del juego.
 public interface Game {
 
     public List<Card> stackMode(Dobble cards);

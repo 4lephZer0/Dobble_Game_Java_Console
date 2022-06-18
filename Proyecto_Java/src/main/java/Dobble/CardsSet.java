@@ -1,5 +1,6 @@
 package Dobble;
 
+// Interfaz del mazo de cartas
 public interface CardsSet {
 
     public boolean isDobble(Dobble cards);
