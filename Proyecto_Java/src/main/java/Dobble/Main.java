@@ -43,7 +43,6 @@ public class Main {
                 
                 int condicion2 = 0;
                 while (condicion2 != 1){
-                    // A,B,C,D,E,F,G,H,I,J,K,L,M
                     System.out.print("Ingrese una lista de elementos (EJEMPLO: A,B,C,D,E)\n" +
                             "Procure que sea del mismo tamaño que la cantidad de elementos por carta: ");
                     cadena  = escaneo.nextLine();
