@@ -3,7 +3,7 @@ package Dobble;
 
 import java.util.*;
 
-public class Dobble {
+public class Dobble implements CardsSet {
 
     private int maxC;
     private int numE;

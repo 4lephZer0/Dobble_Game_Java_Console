@@ -3,15 +3,21 @@ package Dobble;
 import java.util.*;
 
 public class Main {
-    public static void main(String args[]){
+    public static void main(String[] args){
 
         Scanner escaneo = new Scanner(System.in);
         int condicion = 0;
+        Dobble mazo;
+        DobbleGame juego = null;
+
         System.out.println("Bienvenido a Dobble!!");
         System.out.println("Este programa simula el juego de Dobble");
-        System.out.println("Para empezar, Ingrese una de las siguientes opciones");
+        System.out.println("Para empezar");
+
 
         while (condicion < 1){
+
+            System.out.println("Ingrese una de las siguientes opciones\n");
             System.out.println("-----------------------------");
             System.out.println("[1] Para crear un nuevo juego");
             System.out.println("[2] Para Registrar Usuarios");
@@ -21,8 +27,6 @@ public class Main {
             System.out.print("Opcion: ");
             String opcion = escaneo.nextLine();
 
-            Dobble mazo;
-            DobbleGame juego = null;
 
             if (opcion.equals("1")){
                 System.out.print("Ingrese la cantidad maxima de cartas: ");
@@ -31,36 +35,39 @@ public class Main {
 
                 System.out.print("Ingrese la cantidad de elementos por carta: ");
                 String numE1  = escaneo.nextLine();
-                Integer numE = Integer.parseInt(numE1);
+                int numE = Integer.parseInt(numE1);
 
+                String cadena;
+                List<String> elements = null;
+                
                 int condicion2 = 0;
                 while (condicion2 != 1){
-
+                    // A,B,C,D,E,F,G,H,I,J,K,L,M
                     System.out.print("Ingrese una lista de elementos (EJEMPLO: A,B,C,D,E)\n" +
                             "Procure que sea del mismo tamaño que la cantidad de elementos por carta: ");
-                    String cadena  = escaneo.nextLine();
-                    List<String> elements = new ArrayList<String>(Arrays.asList(cadena.split(",")));
-                    if (numE.equals(elements.size())){
+                    cadena  = escaneo.nextLine();
+                    elements = new ArrayList<String>(Arrays.asList(cadena.split(",")));
+                    Integer cantElem = ((numE - 1) * (numE - 1)) + (numE - 1) + 1;
+                    if (cantElem.equals(elements.size())){
                         condicion2 = 1;
                     }
 
                 }
-                String cadena  = escaneo.nextLine();
-                List<String> elements = new ArrayList<String>(Arrays.asList(cadena.split(",")));
-                mazo = new Dobble(maxC, numE, elements);
 
+
+                mazo = new Dobble(maxC, numE, elements);
                 System.out.println(mazo);
 
                 System.out.println("MAZO CREADO CORRECTAMENTE!!!\n");
 
                 System.out.print("Ingrese la cantidad de jugadores maximo a registrar: ");
                 String cantJug  = escaneo.nextLine();
-                Integer cantidadJugadores = Integer.parseInt(cantJug);
+                int cantidadJugadores = Integer.parseInt(cantJug);
 
                 juego = new DobbleGame(cantidadJugadores, mazo,"stackMode");
 
                 System.out.println("JUEGO CREADO CORRECTAMENTE!!!\n");
-                System.out.println("Ahora ingrese la opcion 2 para registrar jugadores.\n");
+                System.out.println("\nAhora ingrese la opcion 2 para registrar jugadores.\n");
 
             }else if (opcion.equals("2")){
 
@@ -72,12 +79,14 @@ public class Main {
 
             }else if (opcion.equals("3")){
 
-                Integer condicion3 = 0;
-                System.out.print("para empezar el juego, ingrese alguna de las siguientes opciones: ");
+                int condicion3 = 0;
+                System.out.println("para empezar el juego, ingrese alguna de las siguientes opciones: ");
 
                 while (condicion3 != 1){
 
-                    System.out.println("## TURNO DE " + juego.whoseTurnIsIt(juego) + " ##");
+                    Player jugador2 = juego.whoseTurnIsIt(juego);
+
+                    System.out.println("## TURNO DE " + jugador2.getJugador() + " ##");
                     System.out.println("-----------------------------");
                     System.out.println("[1] Para extraer 2 cartas del mazo (en caso de ya haber 2 cartas, por favor no utilizar.)");
                     System.out.println("[2] Para nombrar la coincidencia (en caso de haber extraido 2 cartas)");
@@ -96,6 +105,7 @@ public class Main {
                         System.out.println("Carta 1: " + juego.getMesa().get(0));
                         System.out.println("Carta 2: " + juego.getMesa().get(1));
                         System.out.println("-----------------------------");
+                        System.out.println("CARTAS RESTANTES DEL MAZO: " + juego.getDobble().getCards().size());
 
                     }else if (opcion1.equals("2")){
 
@@ -112,9 +122,6 @@ public class Main {
                         juego = juego.play(juego, opcion1, "");
                         condicion3 = 1;
                     }
-
-
-
                 }
 
             }else if (opcion.equals("4")){

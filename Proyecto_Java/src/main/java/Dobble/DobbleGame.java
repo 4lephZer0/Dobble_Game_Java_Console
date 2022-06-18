@@ -1,9 +1,8 @@
 package Dobble;
 
-import java.sql.SQLOutput;
 import java.util.*;
 
-public class DobbleGame {
+public class DobbleGame implements Game {
 
     private List<Card> mesa;
     private int numPlayers;
@@ -27,14 +26,21 @@ public class DobbleGame {
         this.estado = "Aun no iniciado.";
     }
 
+    @Override
     public List<Card> stackMode(Dobble cards){
 
         List<Card> cartasVolteadas = new ArrayList<Card>();
 
-        if (cards.getCards().size() > 2){
+        if (cards.getCards().size() >= 2){
 
             cartasVolteadas.add(cards.getCards().get(0));
             cartasVolteadas.add(cards.getCards().get(1));
+        }
+
+        if (cards.getCards().size() < 2){
+
+            System.out.println("NO QUEDAN MAS PARES DE CARTAS PARA JUGAR AL DOBBLE, POR FAVOR FINALIZAR EL JUEGO.");
+
         }
 
         return cartasVolteadas;
@@ -42,7 +48,7 @@ public class DobbleGame {
 
     public DobbleGame register(DobbleGame game, Player nombreUsuario){
 
-        if (game.getNumPlayers() < game.getJugadores().size()){
+        if (game.getJugadores().size() < game.getNumPlayers()){
 
             List<Player> jugAux = new ArrayList<Player>(game.getJugadores());
             List<List<Card>> cartasJugAux = new ArrayList<List<Card>>(game.getCartasJugadores());
@@ -55,7 +61,7 @@ public class DobbleGame {
             game.setCartasJugadores(cartasJugAux);
 
             game.setTurno((game.getTurno() + 1));
-            System.out.println("JUGADOR REGISTRADO CON EXITO!!");
+            System.out.println("\nJUGADOR REGISTRADO CON EXITO!!\n");
 
         }
         else{
@@ -69,7 +75,7 @@ public class DobbleGame {
 
     public Player whoseTurnIsIt(DobbleGame game){
 
-        return game.getJugadores().get(game.getTurno());
+        return game.getJugadores().get(game.getTurno()-1);
     }
 
     public DobbleGame play(DobbleGame game, String accion, String elemento){
@@ -90,10 +96,19 @@ public class DobbleGame {
 
                 List<List<Card>> cartasJug = new ArrayList<List<Card>>(game.getCartasJugadores());
 
-                cartasJug.get(game.getTurno()).add(game.getMesa().get(0));
-                cartasJug.get(game.getTurno()).add(game.getMesa().get(1));
+                cartasJug.get(game.getTurno()-1).add(game.getMesa().get(0));
+                cartasJug.get(game.getTurno()-1).add(game.getMesa().get(1));
                 game.setCartasJugadores(cartasJug);
 
+                Integer a = game.getTurno();
+                if (a.equals(game.getNumPlayers())){
+
+                    game.setTurno(1);
+                }
+
+                else{
+                    game.setTurno(game.getTurno()+1);
+                }
             }
 
             else{
@@ -104,7 +119,7 @@ public class DobbleGame {
                 Integer a = game.getTurno();
                 if (a.equals(game.getNumPlayers())){
 
-                    game.setTurno(0);
+                    game.setTurno(1);
                 }
 
                 else{
@@ -127,7 +142,7 @@ public class DobbleGame {
             Integer a = game.getTurno();
             if (a.equals(game.getNumPlayers())){
 
-                game.setTurno(0);
+                game.setTurno(1);
             }
 
             else{
@@ -170,10 +185,8 @@ public class DobbleGame {
                 System.out.println("Se declara un empate en el juego.");
             }
             else{
-
-                System.out.println("El ganador del juego es el jugador: " + ganador);
+                System.out.println("El ganador del juego es el jugador: " + ganador.getJugador());
             }
-
             game.setEstado("Terminado");
 
         }
@@ -278,4 +291,6 @@ public class DobbleGame {
                 "\nturno=" + turno +
                 "\nestado=" + estado;
     }
+
+
 }
